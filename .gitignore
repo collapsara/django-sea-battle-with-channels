@@ -1,0 +1,4 @@
+**/venv
+**/.git
+**/pgdata
+**/__pycache__

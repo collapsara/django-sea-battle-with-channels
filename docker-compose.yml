@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:12.6
+    env_file:
+      - .env
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: sea_battle/.
+    env_file: 
+      - .env
+    volumes:
+      - ./sea_battle/sea_battle_app:/home/sea_battle_app
+    ports:
+      - "8008:8000"
+    command: 
+      ["./run_app.sh"]
+    depends_on:
+      - postgres
