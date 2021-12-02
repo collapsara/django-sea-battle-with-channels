@@ -1,0 +1,5 @@
+**/venv
+**/.git
+**/pgdata
+**/__pycache__
+**/.idea
