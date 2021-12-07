@@ -7,9 +7,14 @@ services:
       - .env
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./pgdata:/var/lib/postgresql/data
+      # - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5434:5432"
+
+  redis:
+    image: redis:6.2.1-buster
+    ports:
+      - "6380:6379"
 
   app:
     build: sea_battle/.
@@ -23,3 +28,4 @@ services:
       ["./run_app.sh"]
     depends_on:
       - postgres
+      - redis

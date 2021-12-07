@@ -31,7 +31,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'channels',
+    
     'app',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -79,6 +82,15 @@ WSGI_APPLICATION = 'sea_battle_app.wsgi.application'
 ASGI_APPLICATION = "sea_battle_app.asgi.application"
 
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -90,6 +102,10 @@ DATABASES = {
         'PASSWORD': 'dockerpass',
         'HOST': 'postgres',
         'PORT': '5432',
+        # 'TEST': {
+        #     'ENGINE': 'django.db.backends.sqlite3',
+        #     'NAME': os.path.join(BASE_DIR, 'db_test.sqlite3')
+        # }
     }
 }
 
