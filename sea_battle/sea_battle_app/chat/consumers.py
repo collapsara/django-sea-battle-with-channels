@@ -17,11 +17,11 @@ class ChatConsumer(WebsocketConsumer):
             'messages': self.messages_to_json(messages)
         }
         print('fetch')
-        pass
 
     def new_message(self, data):
         author = data['from']
-        author_user = ''
+        author_user = User.objects.filter(username=author)[0]
+        message = Message.objects.create(author=author_user, content=data['message'])
         print('new message')
 
     def messages_to_json(self, messages):
